@@ -2,7 +2,7 @@
 description = "INTERNAL USE ONLY. OpenAPI-generated ApproveAPI rust client, used by the official client: https://crates.io/crates/approveapi."
 license = "MIT OR Apache-2.0"
 name = "approveapi_openapi"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["hello@approveapi.com"]
 
 [dependencies]
