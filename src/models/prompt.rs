@@ -14,28 +14,31 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Prompt {
-    #[serde(rename = "answer")]
-    pub answer: Option<::models::PromptAnswer>,
+    /// A unique id for this prompt.
+    #[serde(rename = "id")]
+    pub id: String,
     /// The unix timestamp when this prompt was sent.
     #[serde(rename = "sent_at")]
     pub sent_at: f32,
     /// Whether the prompt can still be answered.
     #[serde(rename = "is_expired")]
     pub is_expired: bool,
-    /// A unique id for this prompt.
-    #[serde(rename = "id")]
-    pub id: String,
+    #[serde(rename = "request")]
+    pub request: ::models::CreatePromptRequest,
+    #[serde(rename = "answer")]
+    pub answer: Option<::models::PromptAnswer>,
     #[serde(rename = "metadata")]
     pub metadata: Option<::models::PromptMetadata>,
 }
 
 impl Prompt {
-    pub fn new(sent_at: f32, is_expired: bool, id: String) -> Prompt {
+    pub fn new(id: String, sent_at: f32, is_expired: bool, request: ::models::CreatePromptRequest) -> Prompt {
         Prompt {
-            answer: None,
+            id: id,
             sent_at: sent_at,
             is_expired: is_expired,
-            id: id,
+            request: request,
+            answer: None,
             metadata: None,
         }
     }

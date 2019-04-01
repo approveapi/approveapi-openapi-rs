@@ -14,21 +14,21 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PromptAnswer {
-    /// The unix timestamp when the user answered the prompt.
-    #[serde(rename = "time")]
-    pub time: f32,
     /// The user's answer to whether or not they approve this prompt.
     #[serde(rename = "result")]
     pub result: bool,
+    /// The unix timestamp when the user answered the prompt.
+    #[serde(rename = "time")]
+    pub time: f32,
     #[serde(rename = "metadata")]
     pub metadata: Option<::models::AnswerMetadata>,
 }
 
 impl PromptAnswer {
-    pub fn new(time: f32, result: bool) -> PromptAnswer {
+    pub fn new(result: bool, time: f32) -> PromptAnswer {
         PromptAnswer {
-            time: time,
             result: result,
+            time: time,
             metadata: None,
         }
     }

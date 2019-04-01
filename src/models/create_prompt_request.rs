@@ -14,50 +14,57 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CreatePromptRequest {
+    /// The user to send the approval request to. Can be either an email address or a phone number.
+    #[serde(rename = "user")]
+    pub user: String,
     /// The body of the approval request to show the user.
     #[serde(rename = "body")]
     pub body: String,
     /// The title of an approval request. Defaults to an empty string.
     #[serde(rename = "title")]
     pub title: Option<String>,
-    /// The reject action text. If not specified the reject button will NOT be rendered, and the user will only see an approve action button.
-    #[serde(rename = "reject_text")]
-    pub reject_text: Option<String>,
-    /// The number of seconds until this request can no longer be answered.
-    #[serde(rename = "expires_in")]
-    pub expires_in: Option<f32>,
-    /// If true, the request waits (long-polls) until the user responds to the prompt or more than 10 minutes pass. Defaults to false.
-    #[serde(rename = "long_poll")]
-    pub long_poll: Option<bool>,
-    /// The user to send the approval request to. Can be either an email address or a phone number.
-    #[serde(rename = "user")]
-    pub user: String,
     /// The approve action text. Defaults to 'Approve'.
     #[serde(rename = "approve_text")]
     pub approve_text: Option<String>,
     /// An HTTPS URL to redirect the user to if the prompt is approved. This URL is kept secret until the user is redirected to it.
     #[serde(rename = "approve_redirect_url")]
     pub approve_redirect_url: Option<String>,
+    /// The reject action text. If not specified the reject button will NOT be rendered, and the user will only see an approve action button.
+    #[serde(rename = "reject_text")]
+    pub reject_text: Option<String>,
     /// An HTTPS URL to redirect the user to if the prompt is rejected. This URL is kept secret until the user is redirected to it.
     #[serde(rename = "reject_redirect_url")]
     pub reject_redirect_url: Option<String>,
+    /// If true, the request waits (long-polls) until the user responds to the prompt or more than 10 minutes pass. Defaults to false.
+    #[serde(rename = "long_poll")]
+    pub long_poll: Option<bool>,
+    /// The number of seconds until this request can no longer be answered.
+    #[serde(rename = "expires_in")]
+    pub expires_in: Option<f32>,
     #[serde(rename = "metadata")]
     pub metadata: Option<::models::PromptMetadata>,
+    #[serde(rename = "internal_data")]
+    pub internal_data: Option<::std::collections::HashMap<String, String>>,
+    /// Allows calling `create_prompt` multiple times idempotently, such that a prompt is sent at-most once. This key should contain sufficient randomness. Idempotent requests are stored for 24 hours. After that time, the same key will create a new request.
+    #[serde(rename = "idempotency_key")]
+    pub idempotency_key: Option<String>,
 }
 
 impl CreatePromptRequest {
-    pub fn new(body: String, user: String) -> CreatePromptRequest {
+    pub fn new(user: String, body: String) -> CreatePromptRequest {
         CreatePromptRequest {
+            user: user,
             body: body,
             title: None,
-            reject_text: None,
-            expires_in: None,
-            long_poll: None,
-            user: user,
             approve_text: None,
             approve_redirect_url: None,
+            reject_text: None,
             reject_redirect_url: None,
+            long_poll: None,
+            expires_in: None,
             metadata: None,
+            internal_data: None,
+            idempotency_key: None,
         }
     }
 }

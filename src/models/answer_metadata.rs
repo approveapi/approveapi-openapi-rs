@@ -14,20 +14,20 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnswerMetadata {
-    #[serde(rename = "operating_system")]
-    pub operating_system: Option<String>,
     #[serde(rename = "ip_address")]
     pub ip_address: Option<String>,
     #[serde(rename = "browser")]
     pub browser: Option<String>,
+    #[serde(rename = "operating_system")]
+    pub operating_system: Option<String>,
 }
 
 impl AnswerMetadata {
     pub fn new() -> AnswerMetadata {
         AnswerMetadata {
-            operating_system: None,
             ip_address: None,
             browser: None,
+            operating_system: None,
         }
     }
 }
